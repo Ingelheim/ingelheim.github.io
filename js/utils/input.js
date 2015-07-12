@@ -3,18 +3,25 @@ var IO = {}
 IO.input = (function(jquery){
     // Public
     function registerKeyPressEvents() {
-        jquery(document).keydown(function(evt) {
-            evt = evt || window.event;
-            var charCode = evt.which || evt.keyCode;
-            evt.preventDefault()
+      jquery(document).keypress(function(evt) {
+          evt = evt || window.event;
+          var charCode = evt.which || evt.keyCode;
+          evt.preventDefault()
 
-            if (charCode === CONSTANTS.ENTER_KEY) {
-                var currenText = getCurrentText();
-                saveRow(currenText);
-                parseCommand(currenText);
-            } else {
-                var charTyped = String.fromCharCode(charCode);
-                IO.output.setCurrentText(getCurrentText().concat(charTyped))
+          if (charCode === CONSTANTS.ENTER_KEY) {
+              var currenText = getCurrentText();
+              saveRow(currenText);
+              parseCommand(currenText);
+          } else {
+              var charTyped = String.fromCharCode(charCode);
+              IO.output.setCurrentText(getCurrentText().concat(charTyped))
+          }
+      });
+
+        jquery(document).keydown(function(evt) {
+            var charCode = evt.keyCode;
+            if (charCode === 8) {
+              evt.preventDefault()
             }
         });
     }
