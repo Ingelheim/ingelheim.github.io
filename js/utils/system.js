@@ -47,8 +47,9 @@ SYSTEM.commands = (function(jquery) {
     }
 
     // Private
+    // MARK: Refactore so its doing it itself based on available commands
     function executeHelp() {
-        IO.output.print("clear - clear the screen", "resume - see resume")
+        IO.output.print("clear - clear the screen")
     }
 
     function executeResume() {
