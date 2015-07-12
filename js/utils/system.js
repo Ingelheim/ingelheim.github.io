@@ -16,8 +16,7 @@ function command(execute) {
 SYSTEM.commands = (function(jquery) {
     var validCommands = {
         help: new command(executeHelp),
-        clear: new command(executeClear),
-        resume: new command(executeResume)
+        clear: new command(executeClear)
     }
 
     // Public
