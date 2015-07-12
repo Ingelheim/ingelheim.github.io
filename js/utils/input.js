@@ -21,7 +21,8 @@ IO.input = (function(jquery){
         jquery(document).keydown(function(evt) {
             var charCode = evt.keyCode;
             if (charCode === 8) {
-              evt.preventDefault()
+              evt.preventDefault();
+              deleteLastChar();
             }
         });
     }
@@ -42,14 +43,6 @@ IO.input = (function(jquery){
     }
 
     function cleanUpCommandFromIndicator(commmandWithIndicator) {
-      // var actualText = commmandWithIndicator
-      // var promptText = CONSTANTS.CL_PROMPT
-      //
-      // if (actualText.length <= promptText.length) {
-      //   return actualText
-      // } else {
-      //   return actualText.slice(promptText.length - 1, actualText.length);
-      // }
       return commmandWithIndicator.slice(CONSTANTS.CL_PROMPT.length - 1, commmandWithIndicator.length);
     }
 
@@ -59,15 +52,10 @@ IO.input = (function(jquery){
     }
 
     function deleteLastChar() {
-      // var currenText = getCurrentText();
-      //
-      // if (currenText.length === CONSTANTS.CL_PROMPT.length - 2) {
-      //   return
-      // } else {
-      //   var cleaned = cleanUpCommandFromIndicator(currenText)
-      //   var deleted = cleaned.slice(0, cleaned.length - 1 )
-      //   IO.output.setCurrentText("ingelheim.io:~ webClient$ " + deleted);
-      // }
+      var currenText = getCurrentText();
+        var cleaned = cleanUpCommandFromIndicator(currenText)
+        var deleted = cleaned.slice(0, cleaned.length - 1 )
+        IO.output.setCurrentText(CONSTANTS.CL_PROMPT_PART + deleted);
     }
 
     return {
