@@ -64,7 +64,6 @@ IO.input = (function(jquery){
     }
 
     return {
-        registerKeyPressEvents: registerKeyPressEvents,
-        disableBackButton: disableBackButton
+        registerKeyPressEvents: registerKeyPressEvents
     }
 })($)
