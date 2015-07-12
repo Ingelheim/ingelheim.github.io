@@ -18,7 +18,7 @@ IO.input = (function(jquery){
 
         jquery(document).keydown(function(evt) {
             var charCode = evt.keyCode;
-            console.log(charCode)
+            
             if (charCode === 8) {
               evt.preventDefault();
               deleteLastChar();
@@ -26,7 +26,10 @@ IO.input = (function(jquery){
 
             if (charCode === 9) {
               evt.preventDefault();
-              SYSTEM.commands.autocomplete(cleanUpCommandFromIndicator(getCurrentText()));
+              var cleandText = cleanUpCommandFromIndicator(getCurrentText());
+              if (cleandText !== "") {
+                  SYSTEM.commands.autocomplete(cleanUpCommandFromIndicator(getCurrentText()));
+              }
             }
         });
     }
