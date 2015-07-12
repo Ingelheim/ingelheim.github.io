@@ -6,6 +6,11 @@ function command(execute) {
     this.perform = function() {
         this.execute()
     }
+
+    // MARK: make static
+    this.couldBe = function(command, snippet) {
+        return command.match(new RegExp("\\b" + snippet))
+    }
 }
 
 SYSTEM.commands = (function(jquery) {
@@ -16,15 +21,30 @@ SYSTEM.commands = (function(jquery) {
     }
 
     // Public
+    // MARK: refactor
     function execute(command) {
         if(knows(command)) {
             validCommands[command].perform()
         } else if (command === "") {
-            // do nothing 
+            // do nothing
         } else {
             IO.output.print("Unknown command")
         }
         IO.output.printInputLine()
+    }
+
+    // MARK: Feature envy
+    function autocomplete(snippet) {
+      var regex  = new RegExp(snippet)
+
+      for (command in validCommands) {
+        var possibleCommand = validCommands[command]
+        if (possibleCommand.couldBe(command, snippet)) {
+          var oldLine = CONSTANTS.CL_PROMPT_PART + command
+          IO.output.setCurrentText(oldLine)
+          IO.input.executeForString(oldLine);
+        }
+      }
     }
 
     // Private
@@ -48,6 +68,7 @@ SYSTEM.commands = (function(jquery) {
     }
 
     return {
-        execute: execute
+        execute: execute,
+        autocomplete: autocomplete
     }
 })($)

@@ -9,9 +9,7 @@ IO.input = (function(jquery){
           evt.preventDefault()
 
           if (charCode === CONSTANTS.ENTER_KEY) {
-              var currenText = getCurrentText();
-              saveRow(currenText);
-              parseCommand(currenText);
+              executeForString( getCurrentText());
           } else {
               var charTyped = String.fromCharCode(charCode);
               IO.output.setCurrentText(getCurrentText().concat(charTyped))
@@ -20,11 +18,23 @@ IO.input = (function(jquery){
 
         jquery(document).keydown(function(evt) {
             var charCode = evt.keyCode;
+            console.log(charCode)
             if (charCode === 8) {
               evt.preventDefault();
               deleteLastChar();
             }
+
+            if (charCode === 9) {
+              evt.preventDefault();
+              SYSTEM.commands.autocomplete(cleanUpCommandFromIndicator(getCurrentText()));
+            }
         });
+    }
+
+    // MARK: Delegate to system?
+    function executeForString(string) {
+      saveRow(string);
+      parseCommand(string);
     }
 
     // Private
@@ -59,6 +69,7 @@ IO.input = (function(jquery){
     }
 
     return {
-        registerKeyPressEvents: registerKeyPressEvents
+        registerKeyPressEvents: registerKeyPressEvents,
+        executeForString: executeForString
     }
 })($)
