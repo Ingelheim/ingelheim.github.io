@@ -3,10 +3,9 @@ var IO = {}
 IO.input = (function(jquery){
     // Public
     function registerKeyPressEvents() {
-        jquery(document).keypress(function(evt) {
+        jquery(document).keydown(function(evt) {
             evt = evt || window.event;
             var charCode = evt.which || evt.keyCode;
-
             evt.preventDefault()
 
             if (charCode === CONSTANTS.ENTER_KEY) {
@@ -18,12 +17,6 @@ IO.input = (function(jquery){
                 IO.output.setCurrentText(getCurrentText().concat(charTyped))
             }
         });
-    }
-
-    function disableBackButton() {
-      window.location.hash="no-back-button";
-      window.location.hash="Again-No-back-button";
-      window.onhashchange = backButtonPressed
     }
 
     // Private
